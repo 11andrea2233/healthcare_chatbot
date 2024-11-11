@@ -39,6 +39,14 @@ else:
     
     elif page == "About Me":
         st.header("About Me")
+        st.markdown("""
+        Hi! I'm Andrea Sombilon! I am a business intelligence specialist and data analyst with a strong foundation in deriving insights from data to drive strategic decisions. Currently, I am expanding my skill set by learning to create products in Artificial Intelligence and working towards becoming an AI Engineer. My goal is to leverage my expertise in BI and data analysis with advanced AI techniques to create innovative solutions that enhance business intelligence and decision-making capabilities. 
+        
+        This projects is one of the projects I am building to try and apply the learning I have acquired from the AI First Bootcamp of AI Republic.
+        
+        Any feedback would be greatly appreciated! ❤           
+                    """)
+        
         
     elif page == "Healthcare AI Chatbot":
         System_prompt = """
