@@ -138,7 +138,7 @@ else:
                 st.stop()
                 
         # Display user message in chat message container
-        with st.chat_message("user", avatar="images/user.png"):
+        with st.chat_message():
             st.markdown(f'<div class="user-message">{prompt}</div>', unsafe_allow_html=True)
         
         # Add user message to chat history
