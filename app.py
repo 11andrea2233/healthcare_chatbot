@@ -21,6 +21,20 @@ if not api_key:
 else:
     if page == "Home" :
          st.title ("AI-Powered Receptionist Chatbot for Healthcare")
+         st.write("Hello there! I am your new AI receptionist, designed to make life easier for both healthcare providers and patients. Think of me as a virtual assistant that can help answer patient questions, schedule appointments, provide medication reminders, handle basic billing inquiries, and share information about the clinic. I am here to make sure patients get the answer they need quickly and securely, while freeing up staff to focus on more important tasks.")
+         st.write("What makes me special? Well, I use advanced technology to look up the right information and respond accurately, like an efficient, friendly receptionist. I am always available and ready to assist, whether its early in the morning or late at night.")
+        
+         st.write("What can I do?")
+         st.write("1. Scheduling Appointments. You can book, reschedule or cancel appointments without having to wait on hold or visit the clinic in person.")
+         st.write("2. Medication Reminders. I can remind patients of their current medications and help them request refills, saving everyone time.")
+         st.write("3. Billing Questions. For simple billing questions, I can look up amounts and payment dates, and if things get too complicated, it will direct you to the billing team.")
+         st.write("4. General Clinic Information. Whether its clinic hours, location or accepted insurance plans, i have all the details to keep patients informed.")
+        
+         st.write("Purpose")
+         st.write("My job is simple: to take on the routine questions so your healthcare team can focus on what matters most—caring for patients! Here is how I help:")
+         st.write("Save Time: By handling common questions, I give staff more time to focus on patient care.")
+         st.write("Answer Quickly: Patients dont have to wait long for answers about appointments, medications, and billing—I can respond almost instantly!")
+         st.write("Protect Privacy: I make sure all patient information is kept safe and secure, following healthcare privacy rules.")
          
     
     elif page == "About Me":
