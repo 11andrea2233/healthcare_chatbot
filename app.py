@@ -120,6 +120,37 @@ else:
             AI Receptionist: "Our clinic opens at 9 AM on Saturdays and closes at 3 PM. Is there anything else I can help you with?"
         
         """
+
+        st.markdown("""
+        <style>
+        .user-message {
+            background-color: rgba(255, 255, 255, 0.1) !important;
+            border-radius: 10px;
+            padding: 10px;
+            margin: 5px 0;
+            margin-left: auto;
+            margin-right: 0;
+            max-width: 80%;
+            text-align: right;
+        }
+        .assistant-message {
+            background-color: rgba(255, 255, 255, 0.1) !important;
+            border-radius: 10px;
+            padding: 10px;
+            margin: 5px 0;
+            margin-right: auto;
+            margin-left: 0;
+            max-width: 80%;
+            text-align: left;
+        }
+        .stChatMessage > div {
+            background-color: transparent !important;
+        }
+        .stChatMessage [data-testid="UserAvatar"] {
+            float: right;
+        }
+        </style>
+    """, unsafe_allow_html=True)
         
         #Initialize chat history
         if 'messages' not in st.session_state:
@@ -128,17 +159,17 @@ else:
         #display chat messages from history on app return
         for message in st.session_state.messages:
             message_class = "user-message" if message ["role"] == "user" else "assistant-message"
-            with st.chat_message(message["role"]):
+            with st.chat_message(message["role"], avatar = "👨" if message["role"] == "user" else "👩‍⚕️"):
                    st.markdown(f'<div class="{message_class}">{message["content"]}</div>', unsafe_allow_html=True)
         
         # Accept user input
         if prompt := st.chat_input("How can I assist you?"):
             # Exit command handling
             if prompt.lower() in ['exit', 'quit']:
-                with st.chat_message("assistant", avatar="🧐"):
+                with st.chat_message("assistant", avatar="👨"):
                     st.markdown('<div class="assistant-message">I hope I was able to assist you today!.</div>', unsafe_allow_html=True)
                 st.stop()
-                
+        
         # Display user message in chat message container
         with st.chat_message("user", avatar="👨"):
             st.markdown(f'<div class="user-message">{prompt}</div>', unsafe_allow_html=True)
@@ -154,7 +185,7 @@ else:
         ).choices[0].message.content
 
         # Display assistant response in chat message container
-        with st.chat_message():
+        with st.chat_message("assistant", avatar="👩‍⚕️"):
             st.markdown(f'<div class="assistant-message">{response}</div>', unsafe_allow_html=True)
         
         # Add assistant response to chat history
