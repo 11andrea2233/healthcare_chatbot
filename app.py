@@ -1,6 +1,8 @@
+import os
 import streamlit as st
 from streamlit_option_menu import option_menu
 import openai
+import base64
 
 #Sidebar menu options
 api_key = st.sidebar.text_input("Enter your OpenAI API Key:", type="password")
