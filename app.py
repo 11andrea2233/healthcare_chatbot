@@ -96,52 +96,64 @@ else:
             
         Examples:
             Example 1: Appointment Scheduling
-            Patient: I need to book a follow-up appointment with Dr. Smith.
-            AI Receptionist: Of course, I can help you with that. Could you please provide your Patient ID or your full name and date of birth for verification?
+            Patient: "I need to book a follow-up appointment with Dr. Smith."
+            AI Receptionist: "Of course, I can help you with that. Could you please provide your Patient ID or your full name and date of birth for verification?"
             (Once verified)
-            Thank you, [Patient’s Name]. I see Dr. Smith has availability on Thursday at 3 PM. Would that work for you?
+            "Thank you, [Patient’s Name]. I see Dr. Smith has availability on Thursday at 3 PM. Would that work for you?"
             
             Example 2: Medication Inquiry
-            Patient: Can you remind me what medication I’m on?
-            AI Receptionist: Certainly! To ensure privacy, may I have your Patient ID or your full name and date of birth?
+            Patient: "Can you remind me what medication I’m on?"
+            AI Receptionist: "Certainly! To ensure privacy, may I have your Patient ID or your full name and date of birth?"
             (Once verified)
-            Thank you. According to our records, your current medication is [Medication Name and Dosage]. Please let us know if you’d like to request a refill or speak with your provider about this medication.
+            "Thank you. According to our records, your current medication is [Medication Name and Dosage]. Please let us know if you’d like to request a refill or speak with your provider about this medication."
     
             Example 3: Billing Inquiry
-            Patient: I have a question about a charge on my last bill.
-            AI Receptionist: I’d be happy to help. May I have your Patient ID or your name and date of birth to verify your account?
+            Patient: "I have a question about a charge on my last bill."
+            AI Receptionist: "I’d be happy to help. May I have your Patient ID or your name and date of birth to verify your account?"
             (Once verified)
-            Thank you. Your last charge was for [Service] on [Date]. For a detailed breakdown or questions about insurance, I recommend speaking with our billing department. Would you like me to connect you with them?
+            "Thank you. Your last charge was for [Service] on [Date]. For a detailed breakdown or questions about insurance, I recommend speaking with our billing department. Would you like me to connect you with them?"
             
             Example 4: General Clinic Information
-            Patient: What time does the clinic open on Saturdays?
-            AI Receptionist: Our clinic opens at 9 AM on Saturdays and closes at 3 PM. Is there anything else I can help you with?
+            Patient: "What time does the clinic open on Saturdays?"
+            AI Receptionist: "Our clinic opens at 9 AM on Saturdays and closes at 3 PM. Is there anything else I can help you with?"
         
         """
         
-        def initialize_conversation(prompt):
-            if 'message' not in st.session_state:
-                st.session_state.message = []
-                st.session_state.message.append({"role": "system", "content": System_prompt})
-                
-            initialize_conversation(System_prompt)
+        #Initialize chat history
+        if 'messages' not in st.session_state:
+            st.session_state.messages = []
             
-            for messages in st.session_state.message:
-                if messages['role'] == 'system':
-                    continue
-                else:
-                    with st.chat_message(messages["role"]):
-                        st.markdown(messages["content"])
+        #display chat messages from history on app return
+        for message in st.session_state.messages:
+            message_class = "user-message" if message ["role"] == "user" else "assistant-message"
+            with st.chat_message(message["role"]):
+                   st.markdown(f'<div class="{message_class}">{message["content"]}</div>', unsafe_allow_html=True)
+        
+        # Accept user input
+        if prompt := st.chat_input("How can I assist you?"):
+            # Exit command handling
+            if prompt.lower() in ['exit', 'quit']:
+                with st.chat_message():
+                    st.markdown('<div class="assistant-message">I hope I was able to help you</div>', unsafe_allow_html=True)
+                st.stop()
+                
+        # Display user message in chat message container
+        with st.chat_message("user", avatar="images/user.png"):
+            st.markdown(f'<div class="user-message">{prompt}</div>', unsafe_allow_html=True)
+        
+        # Add user message to chat history
+        st.session_state.messages.append({"role": "user", "content": prompt})
 
-            if user_message := st.chat_input("I can only answer questions related to healthcare"):
-                with st.chat_message("user"):
-                    st.markdown(user_message)
-                st.session_state.message.append({"role": "user", "content": user_message})
-                chat = openai.ChatCompletion.create(
-                    model="gpt-4o-mini",
-                    messages=st.session_state.message,
-                )
-                response = chat.choices[0].message.content
-                with st.chat_message("assistant"):
-                    st.markdown(response)
-                st.session_state.message.append({"role": "assistant", "content": response})
+        # Generate chatbot response
+        messages = [{'role': 'system', 'content': System_prompt}] + st.session_state.messages
+        response = openai.ChatCompletion.create(
+            model="gpt-4o-mini",
+            messages=messages
+        ).choices[0].message.content
+
+        # Display assistant response in chat message container
+        with st.chat_message():
+            st.markdown(f'<div class="assistant-message">{response}</div>', unsafe_allow_html=True)
+        
+        # Add assistant response to chat history
+        st.session_state.messages.append({"role": "assistant", "content": response})
