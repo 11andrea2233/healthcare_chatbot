@@ -159,19 +159,19 @@ else:
         #display chat messages from history on app return
         for message in st.session_state.messages:
             message_class = "user-message" if message ["role"] == "user" else "assistant-message"
-            with st.chat_message(message["role"], avatar = "man" if message["role"] == "user" else "woman"):
+            with st.chat_message(message["role"], icons = 'man' if message["role"] == "user" else 'woman'):
                    st.markdown(f'<div class="{message_class}">{message["content"]}</div>', unsafe_allow_html=True)
         
         # Accept user input
         if prompt := st.chat_input("How can I assist you?"):
             # Exit command handling
             if prompt.lower() in ['exit', 'quit']:
-                with st.chat_message("assistant", avatar="man"):
+                with st.chat_message("assistant", icons = 'man'):
                     st.markdown('<div class="assistant-message">I hope I was able to assist you today!.</div>', unsafe_allow_html=True)
                 st.stop()
         
         # Display user message in chat message container
-        with st.chat_message("user", avatar="man"):
+        with st.chat_message("user", icons = 'man'):
             st.markdown(f'<div class="user-message">{prompt}</div>', unsafe_allow_html=True)
         
         # Add user message to chat history
@@ -185,7 +185,7 @@ else:
         ).choices[0].message.content
 
         # Display assistant response in chat message container
-        with st.chat_message("assistant", avatar="woman"):
+        with st.chat_message("assistant", icons = 'woman'):
             st.markdown(f'<div class="assistant-message">{response}</div>', unsafe_allow_html=True)
         
         # Add assistant response to chat history
