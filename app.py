@@ -136,12 +136,12 @@ else:
             # Exit command handling
             if prompt.lower() in ['exit', 'quit']:
                 with st.chat_message():
-                    st.markdown('<div class="assistant-message">I hope I was able to help you</div>', unsafe_allow_html=True)
+                    st.markdown()
                 st.stop()
                 
         # Display user message in chat message container
         with st.chat_message():
-            st.markdown(f'<div class="user-message">{prompt}</div>', unsafe_allow_html=True)
+            st.markdown()
         
         # Add user message to chat history
         st.session_state.messages.append({"role": "user", "content": prompt})
