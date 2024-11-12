@@ -148,7 +148,7 @@ else:
 
             # Generate chatbot response
             messages = [{'role': 'system', 'content': System_prompt}] + st.session_state.messages
-            response = openai.ChatCompletion.create(model="gpt-4o-mini",messages=messages).choices[0].message.content
+            response = openai.ChatCompletion.create(model="gpt-4o mini",messages=messages).choices[0].message.content
 
             # Display assistant response in chat message container
             with st.chat_message("assistant"):
