@@ -128,7 +128,7 @@ else:
         #display chat messages from history on app return
         for message in st.session_state.messages:
             message_class = "user-message" if message ["role"] == "user" else "assistant-message"
-            with st.chat_message(message["role"] if message["role"] == "user" else "assistant-message"):
+            with st.chat_message(message["role"]):
                    st.markdown(f'<div class="{message_class}">{message["content"]}</div>', unsafe_allow_html=True)
         
         # Accept user input
@@ -148,10 +148,7 @@ else:
 
             # Generate chatbot response
             messages = [{'role': 'system', 'content': System_prompt}] + st.session_state.messages
-            response = openai.ChatCompletion.create(
-                model="gpt-4o-mini",
-                messages=messages
-            ).choices[0].message.content
+            response = openai.ChatCompletion.create(model="gpt-4o-mini",messages=messages).choices[0].message.content
 
             # Display assistant response in chat message container
             with st.chat_message("assistant"):
