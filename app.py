@@ -120,37 +120,6 @@ else:
             AI Receptionist: "Our clinic opens at 9 AM on Saturdays and closes at 3 PM. Is there anything else I can help you with?"
         
         """
-
-        st.markdown("""
-        <style>
-        .user-message {
-            background-color: rgba(255, 255, 255, 0.1) !important;
-            border-radius: 10px;
-            padding: 10px;
-            margin: 5px 0;
-            margin-left: auto;
-            margin-right: 0;
-            max-width: 80%;
-            text-align: right;
-        }
-        .assistant-message {
-            background-color: rgba(255, 255, 255, 0.1) !important;
-            border-radius: 10px;
-            padding: 10px;
-            margin: 5px 0;
-            margin-right: auto;
-            margin-left: 0;
-            max-width: 80%;
-            text-align: left;
-        }
-        .stChatMessage > div {
-            background-color: transparent !important;
-        }
-        .stChatMessage [data-testid="UserAvatar"] {
-            float: right;
-        }
-        </style>
-    """, unsafe_allow_html=True)
         
         #Initialize chat history
         if 'messages' not in st.session_state:
