@@ -166,12 +166,12 @@ else:
         if prompt := st.chat_input("How can I assist you?"):
             # Exit command handling
             if prompt.lower() in ['exit', 'quit']:
-                with st.chat_message("assistant", icons = 'man'):
+                with st.chat_message("assistant"):
                     st.markdown('<div class="assistant-message">I hope I was able to assist you today!.</div>', unsafe_allow_html=True)
                 st.stop()
         
         # Display user message in chat message container
-        with st.chat_message("user", icons = 'man'):
+        with st.chat_message("user"):
             st.markdown(f'<div class="user-message">{prompt}</div>', unsafe_allow_html=True)
         
         # Add user message to chat history
@@ -185,7 +185,7 @@ else:
         ).choices[0].message.content
 
         # Display assistant response in chat message container
-        with st.chat_message("assistant", icons = 'woman'):
+        with st.chat_message("assistant"):
             st.markdown(f'<div class="assistant-message">{response}</div>', unsafe_allow_html=True)
         
         # Add assistant response to chat history
