@@ -139,23 +139,23 @@ else:
                     st.markdown('<div class="assistant-message">I hope I was able to assist you today!.</div>', unsafe_allow_html=True)
                 st.stop()
         
-        # Display user message in chat message container
-        with st.chat_message("user"):
-            st.markdown(f'<div class="user-message">{prompt}</div>', unsafe_allow_html=True)
+            # Display user message in chat message container
+            with st.chat_message("user"):
+                st.markdown(f'<div class="user-message">{prompt}</div>', unsafe_allow_html=True)
         
-        # Add user message to chat history
-        st.session_state.messages.append({"role": "user", "content": prompt})
+            # Add user message to chat history
+            st.session_state.messages.append({"role": "user", "content": prompt})
 
-        # Generate chatbot response
-        messages = [{'role': 'system', 'content': System_prompt}] + st.session_state.messages
-        response = openai.ChatCompletion.create(
-            model="gpt-4o-mini",
-            messages=messages
-        ).choices[0].message.content
+            # Generate chatbot response
+            messages = [{'role': 'system', 'content': System_prompt}] + st.session_state.messages
+            response = openai.ChatCompletion.create(
+                model="gpt-4o-mini",
+                messages=messages
+            ).choices[0].message.content
 
-        # Display assistant response in chat message container
-        with st.chat_message("assistant"):
-            st.markdown(f'<div class="assistant-message">{response}</div>', unsafe_allow_html=True)
-        
-        # Add assistant response to chat history
-        st.session_state.messages.append({"role": "assistant", "content": response})
+            # Display assistant response in chat message container
+            with st.chat_message("assistant"):
+                st.markdown(f'<div class="assistant-message">{response}</div>', unsafe_allow_html=True)
+            
+            # Add assistant response to chat history
+            st.session_state.messages.append({"role": "assistant", "content": response})
