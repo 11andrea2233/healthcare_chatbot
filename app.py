@@ -128,7 +128,7 @@ else:
         #display chat messages from history on app return
         for message in st.session_state.messages:
             message_class = "user-message" if message ["role"] == "user" else "assistant-message"
-            with st.chat_message():
+            with st.chat_message(message["role"] if message["role"] == "user" else "assistant-message"):
                    st.markdown(f'<div class="{message_class}">{message["content"]}</div>', unsafe_allow_html=True)
         
         # Accept user input
